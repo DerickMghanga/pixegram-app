@@ -1,4 +1,5 @@
 import Logo from "./Logo";
+import MoreDropDown from "./MoreDropDown";
 import NavLinks from "./NavLinks";
 
 export default function SideNav() {
@@ -8,8 +9,10 @@ export default function SideNav() {
         <Logo />
         <NavLinks />
 
-
-
+        <div className="hidden md:flex relative md:mt-auto flex-1 items-end w-full">
+          <MoreDropDown />
+        </div>
+        
       </div>
     </div>
   ) 
