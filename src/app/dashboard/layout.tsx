@@ -3,7 +3,7 @@ import SideNav from "@/components/SideNav"
 export default function DashboardLayout({ children }:{ children: React.ReactNode;}) {
   return (
     <div className="flex h-screen relative flex-col md:flex-row md:overflow-hidden">
-        <div className="md:w-20 lg:w-64 flex-none md:border-r w-full">
+        <div className="md:w-20 lg:w-64 flex-none md:border-r">
             <SideNav />
         </div>
 
