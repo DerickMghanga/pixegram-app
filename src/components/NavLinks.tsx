@@ -52,7 +52,7 @@ export default function NavLinks() {
     //console.log(pathname);
 
     return (
-        <>
+        <div className="md:mb-32">
             {
                 links.map((link, index) => {
                     const LinkIcon = link.icon;
@@ -74,6 +74,6 @@ export default function NavLinks() {
                     )
                 })
             }
-        </>
+        </div>
     )
 }
