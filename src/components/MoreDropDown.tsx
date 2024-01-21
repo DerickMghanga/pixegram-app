@@ -9,12 +9,35 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "./ui/button"
-import { Menu } from "lucide-react"
-import { useState } from "react"
+import { Activity, Bookmark, LogOut, Menu, Moon, Settings } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { cn } from "@/lib/utils"
 
 export default function MoreDropDown() {
 
+    const [showModeToggle, setShowModalToggle] = useState(false);
+
     const [open, setOpen] = useState(false);
+
+    const ref = useRef<HTMLDivElement>(null); //access and modify DOM elements, preserve values and manage state without triggering unnecessary re-renders.
+
+    useEffect(() => {
+        //close the dropdown when the user clicks outside the menu element
+        function handleOutsideClick(event: MouseEvent) {
+            if (!event.target) return;
+
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                setShowModalToggle(false);
+                setOpen(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleOutsideClick);
+
+        return () => {   //cleanup after a mousedown event
+            document.removeEventListener("mousedown", handleOutsideClick);
+        }
+    }, [ref]);
 
     return (
         <DropdownMenu open={open}>
@@ -30,16 +53,43 @@ export default function MoreDropDown() {
                 </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent>
-                <DropdownMenuItem>
-                    <DropdownMenuLabel>Settings</DropdownMenuLabel>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <DropdownMenuLabel>Help</DropdownMenuLabel>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <DropdownMenuLabel>Logout</DropdownMenuLabel>
-                </DropdownMenuItem>
+            <DropdownMenuContent ref={ref}
+                className={cn("dark:bg-neutral-800 w-64 !rounded-xl !p-0 transition-opacity", !open && "opacity-0")}
+                align="end"
+                alignOffset={-40}
+            >
+            {
+                !showModeToggle && (
+                    <>
+                        <DropdownMenuItem className="menuItem">
+                            <Settings size={20} />
+                            <p>Settings</p>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem className="menuItem">
+                            <Activity size={20} />
+                            <p>Your activity</p>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem className="menuItem">
+                            <Bookmark size={20} />
+                            <p>Saved</p>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem className="menuItem"
+                            onClick={() => setShowModalToggle(true)}
+                        >
+                            <Moon size={20} />
+                            <p>Switch appearence</p>
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem className="menuItem">
+                            <LogOut size={20} />
+                            <p>Log out</p>
+                        </DropdownMenuItem>
+                    </>
+                )
+            }
             </DropdownMenuContent>
 
         </DropdownMenu>

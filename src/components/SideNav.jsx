@@ -9,7 +9,7 @@ export default function SideNav() {
         <Logo />
         <NavLinks />
 
-        <div className="hidden md:flex relative md:!mt-[200px] flex-1 !items-end w-full">
+        <div className="hidden md:flex relative md:!mt-[200px] flex-1 !items-end">
           <MoreDropDown />
         </div>
       </div>
