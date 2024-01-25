@@ -8,6 +8,9 @@ export const config: NextAuthOptions = {
     },
     adapter: PrismaAdapter(prisma),
     providers: [
-        
+        GoogleaProvider: {
+            client: "",
+            clientSecret: ""
+        }
     ]
 }
