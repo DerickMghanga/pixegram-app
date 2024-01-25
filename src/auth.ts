@@ -1,4 +1,4 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@auth/prisma-adapter"
 import { NextAuthOptions } from "next-auth";
 import prisma from "@/lib/prisma"
 import GoogleProvider from "next-auth/providers/google";
@@ -9,10 +9,10 @@ export const config:NextAuthOptions = {
     },
     adapter: PrismaAdapter(prisma),
     providers: [
-        GoogleProvider: ({
+        GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!
-          })
+          }),
     ],
     session: {
         strategy: "jwt",
@@ -30,7 +30,15 @@ export const config:NextAuthOptions = {
             return session;
         },
         async jwt({token, user}) {
-            const prismaUser = await prisma.
+            const prismaUser = await prisma.user.findFirst({
+                where: {
+                    email: token.email
+                }
+            })
+
+            if (!prismaUser) {
+                token.id = user.id;
+            }
         }
     }
 }
