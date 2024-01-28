@@ -1,13 +1,14 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { NextAuthOptions } from "next-auth";
-//import prisma from "@/lib/prisma"
+//import { NextAuthOptions } from "next-auth";
+import prisma from "@/lib/prisma";
 import { PrismaClient } from "@prisma/client"
 import GoogleProvider from "next-auth/providers/google";
+import NextAuth, {getServerSession, type NextAuthOptions} from "next-auth";
 
 
 const prisma = new PrismaClient();
 
-export const config:NextAuthOptions = {
+export const config: NextAuthOptions = {
     pages: {
         signIn: '/login'
     },
@@ -67,3 +68,5 @@ export const config:NextAuthOptions = {
         }
     },
 }
+
+export default NextAuth(config);
