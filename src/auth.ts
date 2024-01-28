@@ -46,7 +46,15 @@ export const config:NextAuthOptions = {
             }
 
             if (!prismaUser.username) {
-                
+                await prisma.user.update({
+                    where: {
+                        id: prismaUser.id
+                    },
+                    data: {
+                        // ie Elon Musk => elonmusk
+                        username: prismaUser.name?.split(" ").join("").toLowerCase();
+                    }
+                })
             }
         }
     }
