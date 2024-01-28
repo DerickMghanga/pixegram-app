@@ -56,6 +56,14 @@ export const config:NextAuthOptions = {
                     }
                 })
             }
+
+            return {
+                id: prismaUser.id,
+                name: prismaUser.name,
+                email: prismaUser.email,
+                username: prismaUser.username,
+                picture: prismaUser.image
+            }
         }
-    }
+    },
 }
