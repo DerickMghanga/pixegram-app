@@ -4,6 +4,11 @@ import prisma from "@/lib/prisma";
 import { PrismaClient } from "@prisma/client"
 import GoogleProvider from "next-auth/providers/google";
 import NextAuth, {getServerSession, type NextAuthOptions} from "next-auth";
+import {
+    GetServerSidePropsContext,
+    NextApiRequest,
+    NextApiResponse,
+  } from "next";
 
 
 const prisma = new PrismaClient();
@@ -70,3 +75,14 @@ export const config: NextAuthOptions = {
 }
 
 export default NextAuth(config);
+
+
+// Use it in server contexts
+export function auth(
+    ...args:
+      | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+      | [NextApiRequest, NextApiResponse]
+      | []
+  ) {
+    return getServerSession(...args, config);
+  }
