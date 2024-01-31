@@ -11,7 +11,7 @@ import {
   } from "next";
 
 
-const prisma = new PrismaClient();
+//const prisma = new PrismaClient();
 
 export const config: NextAuthOptions = {
     pages: {
